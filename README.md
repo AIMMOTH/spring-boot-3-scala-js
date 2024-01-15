@@ -17,4 +17,14 @@ When you have built using the steps above you can manually run with the followin
 1. Go to spring-boot-3-service-mvn and run ```> mvn spring-boot:start```
 1. Browse to localhost:9090
 
+Versions
+--------
+The following versions are used:
+
+* Java Version 20
+* Spring Boot 3.0.13
+* Scala 2.13.12
+* SBT 1.9.8
+* Scala JS 1.15.0
+
 github.com/aimmoth
