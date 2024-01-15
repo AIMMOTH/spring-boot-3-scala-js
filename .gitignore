@@ -1,0 +1,4 @@
+.idea
+target
+.bsp
+spring-boot-3-service-mvn/src/main/resources/static/main.js

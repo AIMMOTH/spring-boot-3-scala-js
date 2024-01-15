@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Spring Boot 3 with Scala JS
+
+server:
+  address: 0.0.0.0
+  port: 9090
+
+logging:
+  level:
+    com: DEBUG
+
+com:
+  github:
+    aimmoth:
+      factor: 4

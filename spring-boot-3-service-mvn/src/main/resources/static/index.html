@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Spring Boot 3 with Scala JS</title>
+</head>
+<body>
+
+<h1>Spring Boot 3 with Scala Js</h1>
+<p>Spring Boot 3 with shared Scala Js logic between server (JAR dependency) and client (JavaScript).</p>
+
+<h2>Calculation</h2>
+<p>Either use server or client to calculate using the same formula (which is described in Scala JS and shared between server and client).</p>
+
+<h3>Client</h3>
+<p>Enter a number and press calculate.</p>
+<input id="clientInput" type="number" value="1">
+<button id="clientButton" onclick="clientButton()">Calculate</button>
+<input id="clientOutput" type="number" disabled>
+
+<h3>Server</h3>
+<p>Enter a number and press calculate.</p>
+<input id="serverInput" type="number" value="1">
+<button id="serverButton" onclick="serverButton()">Calculate</button>
+<input id="serverOutput" type="number" disabled>
+
+<script src="main.js"></script>
+<script type="application/javascript">
+	console.log("Use Logic().calculate(int);")
+	var example = Logic().calculate(2);
+	console.log("Example: Logic().calculate(2) = " + example);
+
+	// Client
+	function clientButton() {
+		var clientInput = document.getElementById("clientInput").value;
+		var toInteger = parseInt(clientInput);
+		var clientResult = Logic().calculate(toInteger);
+		document.getElementById("clientOutput").value = clientResult;
+	}
+	// Server
+	function serverButton() {
+		var serverInput = document.getElementById("serverInput").value;
+		var toInteger = parseInt(serverInput);
+
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "/calculate", true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.send(JSON.stringify({
+			value: toInteger
+		}));
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == XMLHttpRequest.DONE) {
+				console.log("Reading response:" + xhr.responseText);
+				var responseValue = xhr.responseText;
+				var responseObject = JSON.parse(responseValue);
+				// var responseInteger = parseInt(responseObject.value);
+				document.getElementById("serverOutput").value = responseObject.value;
+			}
+		}
+	}
+</script>
+
+</body>
+</html>
